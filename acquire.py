@@ -3,10 +3,10 @@ import pandas as pd
 import os
 
 
-def get_titanic_data():
+def get_titanic_data(use_cache=True):
     """pull from SQL unless titanic.csv exists"""
     filename = "titanic.csv"
-    if os.path.isfile(filename):
+    if os.path.isfile(filename) and use_cache:
         print("Reading from csv...")
         return pd.read_csv(filename)
 
@@ -23,10 +23,10 @@ def get_titanic_data():
     return df
 
 
-def get_iris_data():
+def get_iris_data(use_cache=True):
     """pull from SQL unless iris.csv exists"""
     filename = "iris.csv"
-    if os.path.isfile(filename):
+    if os.path.isfile(filename) and use_cache:
         print("Reading from csv...")
         return pd.read_csv(filename)
 
@@ -44,10 +44,10 @@ def get_iris_data():
     return df
 
 
-def get_telco_data():
+def get_telco_data(use_cache=True):
     """pull from SQL unless telco.csv exists"""
     filename = "telco.csv"
-    if os.path.isfile(filename):
+    if os.path.isfile(filename) and use_cache:
         print("Reading from csv...")
         return pd.read_csv(filename)
 
@@ -59,7 +59,6 @@ def get_telco_data():
     JOIN contract_types USING(contract_type_id)
     JOIN internet_service_types USING(internet_service_type_id)
     JOIN payment_types USING(payment_type_id)
-    LIMIT 10
     """
     df = pd.read_sql(query, url)
 
