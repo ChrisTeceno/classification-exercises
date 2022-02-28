@@ -12,7 +12,7 @@ def prep_iris(df=acquire.get_iris_data()):
 
 
 def prep_titanic(df=acquire.get_titanic_data()):
-    # d rop class, embarked and alone becuause they are repetive or covered by other vars
+    # drop class, embarked and alone becuause they are repetive or covered by other vars
     df = df.drop(columns=["class", "embarked", "alone"])
     # keep columns with less than 10 nulls
     df = df.loc[:, df.isna().sum() < 10]
