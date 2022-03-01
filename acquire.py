@@ -65,3 +65,65 @@ def get_telco_data(use_cache=True):
     print("Saving to csv in local directory...")
     df.to_csv(filename, index=False)
     return df
+
+
+def get_attendance_data(use_cache=True):
+    """pull from SQL unless attendance.csv exists"""
+    filename = "attendance.csv"
+    if os.path.isfile(filename) and use_cache:
+        print("Reading from csv...")
+        return pd.read_csv(filename)
+
+    print("reading from sql...")
+    url = get_db_url("tidy_data")
+    query = """
+    SELECT *
+    FROM attendance
+    """
+    df = pd.read_sql(query, url)
+
+    print("Saving to csv in local directory...")
+    df.to_csv(filename, index=False)
+    return df
+
+
+def get_coffee_levels_data(use_cache=True):
+    """pull from SQL unless coffee_levels
+    .csv exists"""
+    filename = "coffee_levels.csv"
+    if os.path.isfile(filename) and use_cache:
+        print("Reading from csv...")
+        return pd.read_csv(filename)
+
+    print("reading from sql...")
+    url = get_db_url("tidy_data")
+    query = """
+    SELECT *
+    FROM coffee_levels
+
+    """
+    df = pd.read_sql(query, url)
+
+    print("Saving to csv in local directory...")
+    df.to_csv(filename, index=False)
+    return df
+
+
+def get_cake_recipes_data(use_cache=True):
+    """pull from SQL unless cake_recipes.csv exists"""
+    filename = "cake_recipes.csv"
+    if os.path.isfile(filename) and use_cache:
+        print("Reading from csv...")
+        return pd.read_csv(filename)
+
+    print("reading from sql...")
+    url = get_db_url("tidy_data")
+    query = """
+    SELECT *
+    FROM cake_recipes
+    """
+    df = pd.read_sql(query, url)
+
+    print("Saving to csv in local directory...")
+    df.to_csv(filename, index=False)
+    return df
