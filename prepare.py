@@ -28,6 +28,8 @@ def prep_titanic(df=acquire.get_titanic_data()):
         ],
         axis=1,
     )
+    # drop original columns that are encoded
+    df = df.drop(columns=["sex", "embark_town"])
     return df
 
 
