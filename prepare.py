@@ -13,7 +13,9 @@ def prep_iris(df=acquire.get_iris_data()):
 
 def prep_titanic(df=acquire.get_titanic_data()):
     # drop class, embarked and alone becuause they are repetive or covered by other vars
-    df = df.drop(columns=["class", "embarked", "alone"])
+    df = df.drop(columns=["passenger_id", "class", "embarked", "alone"])
+    # fill age nulls with mean age
+    df.age = df.age.fillna(df.age.mean())
     # keep columns with less than 10 nulls
     df = df.loc[:, df.isna().sum() < 10]
     # make dummies and add them
