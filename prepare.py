@@ -1,5 +1,6 @@
 import acquire
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 
 def prep_iris(df=acquire.get_iris_data()):
@@ -73,3 +74,21 @@ def prep_telco(df=acquire.get_telco_data()):
         axis=1,
     )
     return df
+
+
+def split_data(df, y_value):
+    # split the data set
+    train, test = train_test_split(
+        df, test_size=0.2, random_state=42, stratify=df[y_value]
+    )
+    train, validate = train_test_split(
+        train, test_size=0.3, random_state=42, stratify=train[y_value]
+    )
+    # into x and y
+    x_train = train.drop(columns=[y_value])
+    y_train = train[y_value]
+    x_validate = validate.drop(columns=[y_value])
+    y_validate = validate[y_value]
+    x_test = test.drop(columns=[y_value])
+    y_test = test[y_value]
+    return x_train, y_train, x_validate, y_validate, x_test, y_test
